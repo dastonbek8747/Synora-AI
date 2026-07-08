@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from ai.Chat.chat import chat_with_history_model
+from ai.Image.image_create import generate_image_pollinations
 from db_conn import Base, engine, Local_Sesion, get_db
 import uvicorn
 from uuid import uuid4
@@ -93,6 +94,18 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(db_user)
     db.commit()
     return {"message": "User deleted"}
+
+
+@app.post("/chat", tags=["AI TOOLS"])
+async def chat_ai(message: str, session_id: str, db: Session = Depends(get_db)):
+    response = chat_with_history_model(request=message, session_id=session_id)
+    return response['message']
+
+
+@app.post("/create_image", tags=["AI TOOLS"])
+async def create_image(message: str, session_id: str, db: Session = Depends(get_db)):
+    response = generate_image_pollinations(session_id=session_id, request=message)
+    return response
 
 
 if __name__ == "__main__":

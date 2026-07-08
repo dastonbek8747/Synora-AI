@@ -2,7 +2,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from huggingface_hub import InferenceClient
 from google import genai
 import urllib.parse
-from prompt_image import generate_image_prompt
+from .prompt_image import generate_image_prompt
 from dotenv import load_dotenv
 import os
 import requests
@@ -50,7 +50,7 @@ def generate_image_gemini(request: str, session_id: str):
     return "rasm saqlandi"
 
 
-generate_image_gemini(session_id="dastonz", request="Malika va ristser ajdarho bilan kurashmoqda")
+# generate_image_gemini(session_id="dastonz", request="Malika va ristser ajdarho bilan kurashmoqda")
 
 
 # print(generate_image_gemini("Malika va ritser ajdarho bilan o'rmonda", "daston0778"))
@@ -67,4 +67,5 @@ def generate_image_pollinations(request: str, session_id: str):
     os.makedirs(f"../Users_files/{session_id}")
     with open(f"../Users_files/{session_id}/{prompt['image_name']}.jpg", "wb") as f:
         f.write(response.content)
-        return "rasm saqlandi"
+        return {"message": "rasm saqlandi", "image_name": prompt["image_name"],
+                "image_path": f"../Users_files/{session_id}/{prompt['image_name']}.png"}
