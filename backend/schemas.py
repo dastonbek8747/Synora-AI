@@ -45,3 +45,21 @@ class UpdateUser(BaseModel):
 
 class DeleteUser(BaseModel):
     password: str
+
+
+class ImageSchema(BaseModel):
+    session: str
+    image_path: str
+    image_name: str
+
+
+class VideoSchema(BaseModel):
+    user_id: int
+    video_path: str
+    video_name: str
+
+
+class FileSchema(BaseModel):
+    session_id: str
+    file_path: str
+    file_name: str

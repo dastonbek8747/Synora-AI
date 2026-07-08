@@ -48,7 +48,6 @@ def chat_with_model(request: str):
 
 def chat_with_history_model(request: str, session_id: str):
     response = chain_with_history.invoke({"user_request": request}, config={"configurable": {"session_id": session_id}})
-    print(response.content[0]["text"])
+    return {"message": response.content[0]["text"]}
 
-
-chat_with_history_model(request="Salom !", session_id=session_id)
+# chat_with_history_model(request="Salom !", session_id=session_id)
