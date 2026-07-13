@@ -64,7 +64,7 @@ def generate_image_pollinations(request: str, session_id: str):
         params={"model": "flux"},
         headers={"Authorization": os.getenv("POLLINATIONS_API_KEY")},
     )
-    os.makedirs(f"../Users_files/{session_id}")
+    os.makedirs(f"../Users_files/{session_id}",exist_ok=True)
     with open(f"../Users_files/{session_id}/{prompt['image_name']}.jpg", "wb") as f:
         f.write(response.content)
         return {"message": "rasm saqlandi", "image_name": prompt["image_name"],

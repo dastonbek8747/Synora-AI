@@ -6,7 +6,7 @@ from db_conn import Base
 class Users(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
-    username = Column(String, unique=True, index=True)
+    username = Column(String, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     session_id = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
