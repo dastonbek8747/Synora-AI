@@ -61,6 +61,4 @@ def chat_rag(session_id: str, user_request: str, collection_name):
     context = search_data_chroma(user_request, collection_name)
     response = chain_with_history.invoke({"user_request": user_request, "context": context},
                                          config={"configurable": {"session_id": session_id}})
-    return response.content[0]["text"]
-
-
+    return {"nessage": response.content[0]["text"]}

@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from ai.Chat.chat import chat_with_history_model
 from ai.Image.image_create import generate_image_pollinations
@@ -12,6 +13,8 @@ import schemas
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.mount("/files", StaticFiles(directory="Users_files"), name="files")
 
 
 @app.get("/", tags=["Root"])
@@ -102,10 +105,46 @@ async def chat_ai(message: str, session_id: str, db: Session = Depends(get_db)):
     return response['message']
 
 
+@app.get("/chat_history", tags=["AI TOOLS"])
+async def get_chat_history(session_id: str, db: Session = Depends(get_db)):
+    db_chat_history = db.query(models.ChatHistory).filter(models.ChatHistory.session_id == session_id).all()
+    if not db_chat_history:
+        return {"message": "Chat history not found"}
+    else:
+        return {"chats": db_chat_history}
+
+
+def saved_image_data(file_name: str, file_path: str, session_id: str):
+    db = Local_Sesion()
+    image = models.Images(
+        session_id=session_id,
+        image_path=file_path,
+        image_name=file_name
+    )
+    db.add(image)
+    db.commit()
+    db.refresh(image)
+
+
 @app.post("/create_image", tags=["AI TOOLS"])
-async def create_image(message: str, session_id: str, db: Session = Depends(get_db)):
+async def create_image(message: str, bg_task: BackgroundTasks, session_id: str, db: Session = Depends(get_db)):
     response = generate_image_pollinations(session_id=session_id, request=message)
+    bg_task.add_task(
+        saved_image_data,
+        session_id=session_id,
+        file_name=response["image_name"],
+        file_path=f"{session_id}/{response['image_name']}.jpg",
+    )
     return response
+
+
+@app.get("/images/{session_id}", tags=["AI TOOLS"])
+async def get_image(session_id: str, db: Session = Depends(get_db)):
+    db_image = db.query(models.Images).filter(models.Images.session_id == session_id).all()
+    if not db_image:
+        return {"message": "Image not found"}
+    else:
+        return {"images": db_image}
 
 
 if __name__ == "__main__":

@@ -63,3 +63,9 @@ class FileSchema(BaseModel):
     session_id: str
     file_path: str
     file_name: str
+
+
+class ChatHistorySchema(BaseModel):
+    session_id: str
+    user_request: str
+    ai_response: str
