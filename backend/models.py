@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, Text
 from db_conn import Base
 
 
@@ -37,3 +37,12 @@ class Files(Base):
     file_path = Column(String, nullable=False, index=True)
     file_name = Column(String, nullable=False, index=True)
     create_date = Column(Date, default=datetime.datetime.now)
+
+
+class ChatHistory(Base):
+    __tablename__ = "chat"
+    id = Column(Integer, primary_key=True)
+    session_id = Column(String, ForeignKey('users.session_id'))
+    user_request = Column(Text, nullable=False, index=True)
+    ai_response = Column(Text, nullable=False, index=True)
+
