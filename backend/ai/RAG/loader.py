@@ -1,5 +1,10 @@
-from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDocumentLoader, CSVLoader, \
-    UnstructuredExcelLoader, TextLoader
+from langchain_community.document_loaders import (
+    CSVLoader,
+    PyPDFLoader,
+    TextLoader,
+    UnstructuredExcelLoader,
+    UnstructuredWordDocumentLoader,
+)
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 splitter = RecursiveCharacterTextSplitter(

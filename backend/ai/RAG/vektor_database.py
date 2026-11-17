@@ -1,5 +1,6 @@
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
+
 from .loader import get_split_docs
 
 embedding = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-base")

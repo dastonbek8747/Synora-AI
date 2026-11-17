@@ -1,10 +1,11 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_community.chat_message_histories import PostgresChatMessageHistory
-from langchain_core.runnables import RunnableWithMessageHistory
-from vektor_database import search_data_chroma
-from dotenv import load_dotenv
 import os
+
+from dotenv import load_dotenv
+from langchain_community.chat_message_histories import PostgresChatMessageHistory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableWithMessageHistory
+from langchain_google_genai import ChatGoogleGenerativeAI
+from vektor_database import search_data_chroma
 
 load_dotenv()
 

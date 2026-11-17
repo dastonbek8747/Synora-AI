@@ -1,0 +1,6 @@
+# Lightweight subset used by CI (ruff + pytest).
+# The full app deps (langchain, streamlit, vision, ...) are in requirements.txt.
+pydantic[email]
+argon2-cffi
+pytest
+ruff

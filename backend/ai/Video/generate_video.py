@@ -1,7 +1,9 @@
-import requests
-import urllib.parse
-from dotenv import load_dotenv
 import os
+import urllib.parse
+
+import requests
+from dotenv import load_dotenv
+
 from .video_prompter import generate_video_prompt
 
 load_dotenv()

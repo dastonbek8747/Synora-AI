@@ -1,19 +1,22 @@
-from fastapi import Depends, HTTPException, BackgroundTasks, UploadFile, File, Form, FastAPI
-from fastapi.staticfiles import StaticFiles
-# from dark_swag import FastAPI
-from sqlalchemy.orm import Session
+import os
+from uuid import uuid4
+
+import models
+import schemas_models
+import uvicorn
 from ai.Chat.chat import chat_with_history_model
 from ai.Image.image_create import generate_image_pollinations
-from ai.Video.generate_video import generate_video
+
 # from ai.RAG.rag_chat import chat_rag
 from ai.RAG.vektor_database import save_document_chroma
-from db_conn import Base, engine, Local_Sesion, get_db
-import uvicorn
-from uuid import uuid4
-import models
+from ai.Video.generate_video import generate_video
+from db_conn import Base, Local_Sesion, engine, get_db
+from fastapi import BackgroundTasks, Depends, FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.staticfiles import StaticFiles
 from hash_pswrd import hash_pswd, verify_pswd
-import schemas_models
-import os
+
+# from dark_swag import FastAPI
+from sqlalchemy.orm import Session
 
 Base.metadata.create_all(bind=engine)
 

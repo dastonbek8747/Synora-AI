@@ -1,12 +1,12 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
-from dotenv import load_dotenv
-import psycopg
-from langchain_core.runnables import RunnableWithMessageHistory
-from langchain_postgres import PostgresChatMessageHistory
-from langchain_core.prompts import MessagesPlaceholder
-from langchain_core.prompts import ChatPromptTemplate
 import os
 from uuid import uuid4
+
+import psycopg
+from dotenv import load_dotenv
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableWithMessageHistory
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_postgres import PostgresChatMessageHistory
 
 session_id = str(uuid4())
 load_dotenv()

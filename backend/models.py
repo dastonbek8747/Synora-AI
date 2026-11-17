@@ -1,6 +1,7 @@
 import datetime
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, Text
+
 from db_conn import Base
+from sqlalchemy import Column, Date, ForeignKey, Integer, String, Text
 
 
 class Users(Base):
