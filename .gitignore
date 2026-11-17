@@ -14,3 +14,8 @@ __pycache__/
 .vscode/
 # OS
 .DS_Store
+
+# Runtime data (generated at run time)
+backend/Chrome_db/
+backend/Users_files/
+backend/ai/Video/Users_files/
